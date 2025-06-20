@@ -168,7 +168,7 @@ class TTSService:
                 if speaker and speaker != "default":
                     synthesis_kwargs["speaker_id"] = speaker
                 speech = synthesizer(text, forward_params=synthesis_kwargs)
-                
+                print("done")
                 # Save audio file
                 import numpy as np
                 import scipy.io.wavfile
