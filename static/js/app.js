@@ -136,7 +136,7 @@ class KasaMframeApp {
             }
         } catch (error) {
             console.error('Synthesis error:', error);
-            this.showAlert('Network error during synthesis', 'danger');
+            // this.showAlert('Network error during synthesis', 'danger');
         } finally {
             this.setLoadingState(false);
         }
