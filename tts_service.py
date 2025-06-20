@@ -61,7 +61,7 @@ class TTSService:
         # Add Coqui TTS models if available
         if COQUI_AVAILABLE:
             self.available_models.update({
-                "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-swh-finetuned": {
+                "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050": {
                     "name": "HCI Lab DCSUG Multispeaker",
                     "type": "coqui",
                     "model_path": "/tmp/ugtts-model/best_model.pth",
