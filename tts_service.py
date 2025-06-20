@@ -167,8 +167,7 @@ class TTSService:
                 synthesis_kwargs = {}
                 if speaker and speaker != "default":
                     synthesis_kwargs["speaker_id"] = speaker
-                
-                speech = synthesizer(text, **synthesis_kwargs)
+                speech = synthesizer(text, forward_params=synthesis_kwargs)
                 
                 # Save audio file
                 import numpy as np
@@ -211,7 +210,8 @@ class TTSService:
                 else:
                     synthesizer.tts_to_file(
                         text=text,
-                        file_path=output_path
+                        file_path=output_path,
+                        speaker=model_info["speakers"][0]
                     )
             else:
                 # Generate simple test audio for unsupported model types
