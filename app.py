@@ -119,7 +119,7 @@ def synthesize():
         return jsonify({
             "status": "success",
             "audio_id": audio_id,
-            "transcription": "None",
+            "transcription": "Not Implemented",
             "wer_score": 0,
             "threshold_exceeded": True
         })
