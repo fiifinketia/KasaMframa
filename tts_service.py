@@ -166,7 +166,7 @@ class TTSService:
                 # Transformers pipeline synthesis
                 synthesis_kwargs = {}
                 if speaker and speaker != "default":
-                    synthesis_kwargs["speaker_id"] = model_info["speakers"].index("speaker")
+                    synthesis_kwargs["speaker_id"] = model_info["speakers"].index(speaker)
                 speech = synthesizer(text, forward_params=synthesis_kwargs)
                 # Save audio file
                 import numpy as np
