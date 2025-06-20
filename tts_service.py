@@ -11,11 +11,11 @@ try:
     import scipy.io.wavfile
     from transformers import pipeline, VitsModel, VitsTokenizer
     TORCH_AVAILABLE = True
-    logger.info(f"PyTorch {torch.__version__} loaded successfully")
+    print(f"PyTorch {torch.__version__} loaded successfully")
 except ImportError as e:
     TORCH_AVAILABLE = False
     torch = None
-    logger.warning(f"PyTorch not available: {e}")
+    print(f"PyTorch not available: {e}")
 
 # Try to import Coqui TTS
 try:
@@ -34,10 +34,10 @@ class TTSService:
         self.models = {}
         if TORCH_AVAILABLE:
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
-            logger.info(f"TTS Service initialized on device: {self.device}")
+            print(f"TTS Service initialized on device: {self.device}")
         else:
             self.device = "cpu"
-            logger.warning("TTS Service initialized without PyTorch - using fallback mode")
+            print("TTS Service initialized without PyTorch - using fallback mode")
         
         # Define available models
         self.available_models = {
@@ -101,7 +101,7 @@ class TTSService:
             return self.models[model_id]
         
         try:
-            logger.info(f"Loading TTS model: {model_id}")
+            print(f"Loading TTS model: {model_id}")
             
             model_info = self.available_models.get(model_id)
             if not model_info:
@@ -117,7 +117,7 @@ class TTSService:
                     device=0 if self.device == "cuda" else -1
                 )
                 self.models[model_id] = synthesizer
-                logger.info(f"Successfully loaded model: {model_id}")
+                print(f"Successfully loaded model: {model_id}")
                 return synthesizer
             elif model_info["type"] == "coqui":
                 if not COQUI_AVAILABLE:
@@ -140,24 +140,24 @@ class TTSService:
                     synthesizer = synthesizer.to("cuda")
                 
                 self.models[model_id] = synthesizer
-                logger.info(f"Successfully loaded Coqui model: {model_id}")
+                print(f"Successfully loaded Coqui model: {model_id}")
                 return synthesizer
             else:
                 raise ValueError(f"Unsupported model type: {model_info['type']}")
                 
         except Exception as e:
-            logger.error(f"Failed to load model {model_id}: {str(e)}")
+            print(f"Failed to load model {model_id}: {str(e)}")
             raise
     
     def synthesize(self, text, model_id, output_path, speaker=None):
         """Synthesize speech from text"""
         try:
             model_info = self.available_models[model_id]
-            logger.info(f"Synthesizing: '{text}' with model {model_id}, speaker: {speaker}")
+            print(f"Synthesizing: '{text}' with model {model_id}, speaker: {speaker}")
             
             if model_info["type"] == "transformers":
                 if not TORCH_AVAILABLE:
-                    logger.error("Cannot synthesize with transformers - PyTorch not available")
+                    print("Cannot synthesize with transformers - PyTorch not available")
                     return False
                     
                 # Load model
@@ -195,7 +195,7 @@ class TTSService:
                 
             elif model_info["type"] == "coqui":
                 if not COQUI_AVAILABLE:
-                    logger.error("Cannot synthesize with Coqui - TTS not available")
+                    print("Cannot synthesize with Coqui - TTS not available")
                     return False
                     
                 # Load model
@@ -215,14 +215,14 @@ class TTSService:
                     )
             else:
                 # Generate simple test audio for unsupported model types
-                logger.warning(f"Generating test audio for unsupported model type: {model_info['type']}")
+                print(f"Generating test audio for unsupported model type: {model_info['type']}")
                 self._generate_test_audio(output_path)
             
-            logger.info(f"Audio saved to: {output_path}")
+            print(f"Audio saved to: {output_path}")
             return True
             
         except Exception as e:
-            logger.error(f"Synthesis failed: {str(e)}")
+            print(f"Synthesis failed: {str(e)}")
             return False
     
     def _generate_test_audio(self, output_path):
