@@ -49,12 +49,12 @@ class TTSService:
             "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-aka-finetuned": {
                 "name": "HCI Lab DCSUG Akan Finetuned",
                 "type": "transformers", 
-                # "speakers": ["IM", "speaker_1", "speaker_2"]
+                "speakers": ["IM"]
             },
             "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-swh-finetuned": {
                 "name": "Swahili Finetuned",
                 "type": "transformers",
-                # "speakers": ["IM", "speaker_1", "speaker_2"]
+                "speakers": ["IM"]
             }
         }
         
