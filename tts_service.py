@@ -113,7 +113,7 @@ class TTSService:
                 # Use transformers pipeline
                 synthesizer = pipeline(
                     "text-to-speech",
-                    model=model_id,
+                    model=model_info["hf_id"],
                     device=0 if self.device == "cuda" else -1
                 )
                 self.models[model_id] = synthesizer
