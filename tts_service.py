@@ -41,27 +41,30 @@ class TTSService:
         
         # Define available models
         self.available_models = {
-            "facebook/mms-tts-aka": {
+            "facebook_mms-tts-aka": {
                 "name": "Facebook MMS TTS Akan",
                 "type": "transformers",
-                "speakers": None
+                "speakers": None,
+                "hf_id": "facebook/mms-tts-aka"
             },
-            "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-aka-finetuned": {
+            "hci-lab-dcug_ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-aka-finetuned": {
                 "name": "HCI Lab DCSUG Akan Finetuned",
                 "type": "transformers", 
-                "speakers": ["IM"]
+                "speakers": ["IM"],
+                "hf_id": "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-aka-finetuned"
             },
-            "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-swh-finetuned": {
+            "hci-lab-dcug_ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-swh-finetuned": {
                 "name": "Swahili Finetuned",
                 "type": "transformers",
-                "speakers": ["IM"]
+                "speakers": ["IM"],
+                "hf_id": "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050-mms-swh-finetuned"
             }
         }
         
         # Add Coqui TTS models if available
         if COQUI_AVAILABLE:
             self.available_models.update({
-                "hci-lab-dcug/ugtts-multispeaker-max40secs-total2hrs-sr22050": {
+                "hci-lab-dcug_ugtts-multispeaker-max40secs-total2hrs-sr22050": {
                     "name": "HCI Lab DCSUG Multispeaker",
                     "type": "coqui",
                     "model_path": "/tmp/ugtts-model/best_model.pth",
@@ -76,7 +79,7 @@ class TTSService:
             {
                 "id": model_id,
                 "name": model_info["name"],
-                "has_speakers": model_info["speakers"] is not None
+                "has_speakers": model_info["speakers"] is not None,
             }
             for model_id, model_info in self.available_models.items()
         ]
